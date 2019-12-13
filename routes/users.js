@@ -16,7 +16,7 @@ router.post('/sayHello', function(req, res) {
   console.log(req.body);
 
   const responseBody = {
-    version: "1.0",
+    version: "2.0",
     template: {
       outputs: [
         {
