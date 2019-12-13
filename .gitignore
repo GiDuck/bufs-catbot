@@ -1,2 +1,3 @@
 # node modules 제외, 파일이 너무 많기 때문에  package.json으로만 관리함
 /node_modules
+.env
