@@ -19,14 +19,17 @@ router.post('/sayHello', function(req, res) {
     version: "2.0",
     template: {
       outputs: [
-        {
-          quickReplies: ['안녕', '나는', '김기덕이야', '만나서', '반갑다']
-        }
-      ]
+        simpleText: {
+          text: "냥!"
+        },
+        
+      ],
+      quickReplies: ['안녕', '나는', '김기덕이야', '만나서', '반갑다']
     }
   };
 
   res.status(200).send(responseBody);
 });
+
 
 module.exports = router;
