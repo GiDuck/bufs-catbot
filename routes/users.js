@@ -23,7 +23,8 @@ router.post('/sayHello', function(req, res) {
           text: "냥!"
         }},
         
-      ]
+      ],
+      quickReplies: [{label: '안녕', action:"message", messageText: '나는 부산외대 냥이라냥'}]
       
     }
   };
