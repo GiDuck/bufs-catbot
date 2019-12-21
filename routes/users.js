@@ -1,5 +1,8 @@
+require ("../models/response"); 
+
 var express = require('express');
 var router = express.Router();
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -14,20 +17,13 @@ router.get('/login/:id', function(req, res, next) {
 
 router.post('/sayHello', function(req, res) {
   console.log(req.body);
+  const template = new TemplateBuilder()
+  .simpleText("안녕~~! 테스트임..")
+  .setQuickReplies({label: '안녕', action:"message", messageText: '나는 부산외대 냥이라냥', extra: 'extra'})
+  .setQuickReplies({label: '안녕2', action:"message", messageText: '나는 부산외대 냥이라냥22', extra: 'extra'})
+  .build();
 
-  const responseBody = {
-    version: "2.0",
-    template: {
-      outputs: [{
-        simpleText: {
-          text: "냥!"
-        }},
-        
-      ],
-      quickReplies: [{label: '안녕', action:"message", messageText: '나는 부산외대 냥이라냥'}]
-      
-    }
-  };
+  const responseBody = getResponseModel(template);
 
   res.status(200).send(responseBody);
 });
