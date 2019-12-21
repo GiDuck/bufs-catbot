@@ -32,8 +32,10 @@
 
       simpleImage(imageUrl, altText) {
         this.responseTemplate = {
+          simpleImage: {
           imageUrl: imageUrl,
           altText: altText
+        }
         };
         return this;
       }
