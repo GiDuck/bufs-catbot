@@ -23,7 +23,9 @@
 
       simpleText(text) {
         this.responseTemplate = {
-          simpleText: text
+          simpleText: {
+            text: text
+          }
         };
         return this;
       }
@@ -61,9 +63,9 @@
         this.quickReplies.push({
           label: label,
           action: action,
-          messageText: messageText
-          // blockId: blockId,
-          // extra: extra
+          messageText: messageText,
+          blockId: blockId,
+          extra: extra
         });
         return this;
       }

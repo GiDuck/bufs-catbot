@@ -21,6 +21,8 @@ router.post('/sayHello', function(req, res) {
 
   const template = new TemplateBuilder()
   .simpleText("안녕~~! 테스트임..")
+  .setQuickReplies('안녕', "message", '나는 부산외대 냥이라냥', null, 'extra')
+  .setQuickReplies('안녕2', "message", '나는 부산외대 냥이라냥22', null, 'extra')
   .build();
 
   res.status(200).send(getResponseModel(template));
