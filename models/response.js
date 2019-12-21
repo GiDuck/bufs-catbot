@@ -1,216 +1,220 @@
-export const getResponseModel = (template, context, data) => {
-  return {
-    version: "2.0",
-    template: template,
-    context: context,
-    data: data
-  };
-};
 
-/**
- * Template Builder
- * --
- * 필요한 템플릿을 함수로 초기화 하고
- * 마지막에 build() 메소드를 호출하면 완성된 템플릿이 반환됩니다.
- */
-
-export class TemplateBuilder {
-  constructor() {
-    super();
-  }
-
-  responseTemplate = {};
-  quickReplies = [];
-
-  simpleText(text) {
-    responseTemplate = {
-      simpleText: text
-    };
-    return this;
-  }
-
-  simpleImage(imageUrl, altText) {
-    responseTemplate = {
-      imageUrl: imageUrl,
-      altText: altText
-    };
-    return this;
-  }
-
-  basicCard(title, description, thumbnail, profile, social, buttons) {
-    responseTemplate = {
-      title: title,
-      description: description,
-      thumbnail: thumbnail,
-      profile: profile,
-      social: social,
-      buttons: buttons
-    };
-    return this;
-  }
-
-  listCard(header, items, buttons) {
-    responseTemplate = {
-      header: header,
-      items: items,
-      buttons: buttons
-    };
-    return this;
-  }
-
-  setQuickReplies(label, action, messageText, blockId, extra) {
-    quickReplies.push({
-      label: label,
-      action: action,
-      messageText: messageText,
-      blockId: blockId,
-      extra: extra
-    });
-    return this;
-  }
-
-  build() {
-    return {
-      outputs: [responseTemplate],
-      quickReplies: quickReplies
-    };
-  }
-}
-
-//Common Response Objects
-
-export class Thumbnail {
-
-    imageUrl;
-    link;
-    fixedRatio;
-    width;
-    height;
-
-    setImage(imageUrl){
-        this.imageUrl = imageUrl;
+  const getResponseModel = (template, context, data) => {
+      return {
+        version: "2.0",
+        template: template,
+        context: context,
+        data: data
+      };
     }
 
-    setLink(link){
+    /**
+     * Template Builder
+     * --
+     * 필요한 템플릿을 함수로 초기화 하고
+     * 마지막에 build() 메소드를 호출하면 완성된 템플릿이 반환됩니다.
+     */
+
+    class TemplateBuilder {
+      constructor() {
+        this.responseTemplate = {};
+        this.quickReplies = [];
+      }
+
+      simpleText(text) {
+        this.responseTemplate = {
+          simpleText: text
+        };
+        return this;
+      }
+
+      simpleImage(imageUrl, altText) {
+        this.responseTemplate = {
+          imageUrl: imageUrl,
+          altText: altText
+        };
+        return this;
+      }
+
+      basicCard(title, description, thumbnail, profile, social, buttons) {
+       this.responseTemplate = {
+          title: title,
+          description: description,
+          thumbnail: thumbnail,
+          profile: profile,
+          social: social,
+          buttons: buttons
+        };
+        return this;
+      }
+
+      listCard(header, items, buttons) {
+        this.responseTemplate = {
+          header: header,
+          items: items,
+          buttons: buttons
+        };
+        return this;
+      }
+
+      setQuickReplies(label, action, messageText, blockId, extra) {
+        this.quickReplies.push({
+          label: label,
+          action: action,
+          messageText: messageText,
+          blockId: blockId,
+          extra: extra
+        });
+        return this;
+      }
+
+      build() {
+        return {
+          outputs: [this.responseTemplate],
+          quickReplies: this.quickReplies
+        };
+      }
+    }
+
+    //Common Response Objects
+
+    class Thumbnail {
+      constructor() {
+        this.imageUrl;
+        this.link;
+        this.fixedRatio;
+        this.width;
+        this.height;
+      }
+
+      setImage(imageUrl) {
+        this.imageUrl = imageUrl;
+      }
+
+      setLink(link) {
         this.link = link;
-    }
+      }
 
-    setFixedRatio(fixedRatio){
+      setFixedRatio(fixedRatio) {
         this.fixedRatio = fixedRatio;
-    }
+      }
 
-    setWidth(width){
+      setWidth(width) {
         this.width = width;
-    }
+      }
 
-    setHeight(height){
+      setHeight(height) {
         this.height = height;
+      }
     }
 
+    class Button {
+      constructor() {
+        this.label;
+        this.action;
+        this.webLinkUrl;
+        this.osLink;
+        this.messageText;
+        this.phoneNumber;
+        this.blockId;
+        this.extra;
+      }
 
-};
-
-export class Button {
-
-    label;
-    action;
-    webLinkUrl;
-    osLink;
-    messageText;
-    phoneNumber;
-    blockId;
-    extra;
-
-    setLabel(label){
+      setLabel(label) {
         this.label = label;
-    }
+      }
 
-    setAction(action){
+      setAction(action) {
         this.action = action;
-    }
+      }
 
-    setWebLinkUrl(webLinkUrl){
+      setWebLinkUrl(webLinkUrl) {
         this.webLinkUrl = webLinkUrl;
-    }
+      }
 
-    setOsLink(osLink){
+      setOsLink(osLink) {
         this.osLink = osLink;
-    }
+      }
 
-    setMessageText(messageText){
+      setMessageText(messageText) {
         this.messageText = messageText;
-    }
+      }
 
-    setPhoneNumber(phoneNumber){
+      setPhoneNumber(phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
+      }
 
-    setBlockId(blockId){
+      setBlockId(blockId) {
         this.blockId = blockId;
-    }
+      }
 
-    setExtra(extra){
+      setExtra(extra) {
         this.extra = extra;
+      }
     }
 
+    class Link {
+      constructor() {
+        this.mobile;
+        this.ios;
+        this.android;
+        this.pc;
+        this.mac;
+        this.win;
+        this.web;
+      }
 
-};
-
-export class Link {
-
-    mobile;
-    ios;
-    android;
-    pc;
-    mac;
-    win;
-    web;
-
-
-    setMobile(mobile){
+      setMobile(mobile) {
         this.mobile = mobile;
-    }
+      }
 
-    setIos(ios){
+      setIos(ios) {
         this.ios = ios;
-    }
+      }
 
-    setAndriod(android){
+      setAndriod(android) {
         this.android = android;
-    }
+      }
 
-    setPc(pc){
+      setPc(pc) {
         this.pc = pc;
-    }
+      }
 
-    setMac(mac){
+      setMac(mac) {
         this.mac = mac;
-    }
+      }
 
-    setWin(win){
+      setWin(win) {
         this.win = win;
-    }
+      }
 
-    setWeb(web){
+      setWeb(web) {
         this.web = web;
+      }
     }
 
+    class Profile {
+      constructor() {
+        this.nickname;
+        this.imageUrl;
+      }
 
-};
-
-export class Profile{
-    nickname;
-    imageUrl;
-    
-    setNickname(nickname){
+      setNickname(nickname) {
         this.nickname = nickname;
-    }
+      }
 
-    setImageUrl(imageUrl){
+      setImageUrl(imageUrl) {
         this.imageUrl = imageUrl;
+      }
     }
 
 
-}
 
- 
+    module.exports = ({
+      getResponseModel: getResponseModel,
+      TemplateBuilder: TemplateBuilder,
+      Thumbnail: Thumbnail,
+      Button: Button,
+      Link: Link,
+      Profile: Profile
+    })
