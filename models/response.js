@@ -70,8 +70,8 @@
 
       build() {
         return {
-          outputs: [{responseTemplate:this.responseTemplate}, {quickReplies: this.quickReplies}]
-          
+          outputs: [this.responseTemplate],
+          quickReplies: this.quickReplies
         };
       }
     }

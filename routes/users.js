@@ -21,14 +21,14 @@ router.post('/sayHello', function(req, res) {
 
   const template = new TemplateBuilder()
   .simpleText("안녕~~! 테스트임..")
-  .setQuickReplies({label: '안녕', action:"message", messageText: '나는 부산외대 냥이라냥', extra: 'extra'})
-  .setQuickReplies({label: '안녕2', action:"message", messageText: '나는 부산외대 냥이라냥22', extra: 'extra'})
+  .setQuickReplies('안녕', "message", '나는 부산외대 냥이라냥', 'extra')
+  .setQuickReplies('안녕2', "message", '나는 부산외대 냥이라냥22', 'extra')
   .build();
 
   console.log(template);
 
   const responseBody = getResponseModel(template);
-  console.log(getResponseModel(template));
+  console.log(JSON.stringify(responseBody));
 
   res.status(200).send(responseBody);
 });
