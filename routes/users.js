@@ -25,11 +25,8 @@ router.post('/sayHello', function(req, res) {
   .setQuickReplies('안녕2', "message", '나는 부산외대 냥이라냥22', null, 'extra')
   .build();
 
-  console.log(template);
-
-  const responseBody = getResponseModel(template);
-  console.log(JSON.stringify(responseBody));
-
+  let responseBody = getResponseModel(template);
+  responseBody = JSON.stringify(responseBody);
   res.status(200).send(responseBody);
 });
 
