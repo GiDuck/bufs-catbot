@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/home', function(req, res) {
 
-  console.log(req.param);
+  console.log(req.params);
   const template = new TemplateBuilder()
   .simpleText("안녕 난 냥냥봇이야")
   .build();
