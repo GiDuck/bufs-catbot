@@ -1,5 +1,5 @@
 
-  const getResponseModel = (template, context, data) => {
+  const getResponseModel = (template, context=null, data=null) => {
       return {
         version: "2.0",
         template: template,
