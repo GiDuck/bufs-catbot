@@ -25,7 +25,7 @@ router.post('/colleges', async (req, res) => {
   
   console.log(JSON.stringify(req.params));
   const colleages = await getColleges();
-  console.log("colleages", colleages);
+  console.log("colleages", colleages.value);
   //res.status(200).send();
 
 
