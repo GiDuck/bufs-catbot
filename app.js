@@ -13,13 +13,14 @@ var skillsRouter = require('./routes/skills');
 require('dotenv').config();
 
 var db = mongoose.connection;
+mongoose.connect(process.env.MONGO_URL);
+
 db.on('error', console.error);
 db.once('open', function(){
     // CONNECTED TO MONGODB SERVER
     console.log("Connected to mongod server");
 });
 
-mongoose.connect(process.env.MONGO_URL);
 var app = express();
 
 // view engine setup
