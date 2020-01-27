@@ -27,14 +27,23 @@ router.post('/colleges', async (req, res) => {
   const findData = await getColleges();
   const colleages = findData.map(data=> data.name);
   console.log("colleages", colleages);
-  //res.status(200).send();
 
 
-  // const template = new TemplateBuilder()
-  // .simpleText("안녕 난 냥냥봇이야")
-  // .build();
+  const templateBuilder = new TemplateBuilder()
+  .simpleText("단과대학 목록이라냥");
 
-  // res.status(200).send(getResponseModel(template));
+  colleages.forEach(colleage=>{
+    templateBuilder.setQuickReplies(
+      {
+        label: colleage,
+        action: "block",
+        messageText: colleage,
+        blockId: "학부목록",
+        extra: null}
+    )
+  });
+  const template = templateBuilder.build();
+  res.status(200).send(getResponseModel(template));
 });
 
 router.post('/departments', function(req, res) {
