@@ -36,10 +36,9 @@ router.post('/colleges', async (req, res) => {
     templateBuilder.setQuickReplies(
       {
         label: colleage,
-        action: "block",
+        action: "message",
         messageText: colleage,
-        blockId: "학부목록",
-        extra: null}
+      }
     )
   });
   const template = templateBuilder.build();
