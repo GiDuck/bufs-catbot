@@ -20,11 +20,12 @@ router.post('/buttons', function(req, res) {
 });
 
 
-router.post('/colleges', function(req, res) {
+router.post('/colleges', async (req, res) => {
   
   
   console.log(JSON.stringify(req.params));
-  getColleges();
+  const colleages = await getColleges();
+  console.log("colleages", colleages.value);
   //res.status(200).send();
 
 
