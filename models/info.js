@@ -8,4 +8,4 @@ const InfoSchema = new mongoose.Schema({
 
 const Info = mongoose.model("Info", InfoSchema);
 
-export default Info;
+module.exports =  ({ Info });
