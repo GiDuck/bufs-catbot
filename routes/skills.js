@@ -20,7 +20,7 @@ router.post('/buttons', function(req, res) {
 
 router.post('/department', function(req, res) {
   
-  console.log(res.params);
+  console.log(JSON.stringify(res.param));
   //res.status(200).send();
 
 
