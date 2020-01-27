@@ -24,7 +24,8 @@ router.post('/colleges', async (req, res) => {
   
   
   console.log(JSON.stringify(req.params));
-  const colleages = await getColleges();
+  const findData = await getColleges();
+  const colleages = findData.map(data=> data.name);
   console.log("colleages", colleages);
   //res.status(200).send();
 
