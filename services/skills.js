@@ -1,11 +1,10 @@
 const { Info }  = require ("../models/info.js"); 
 
-const getColleges = () => {
+const getColleges = (req, res) => {
     console.log("getColleges")
-    Info.find({parent: "학과정보찾기"}).then(colleges=>{
+    Info.find({parent: "학과정보찾기"}), ((err, colleges)=>{
+        console.log(err);
         console.log(colleges);
-    }).catch(err => {
-        console.log("error", err);
     });
 }
 
