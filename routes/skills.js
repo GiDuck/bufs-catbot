@@ -49,6 +49,7 @@ router.post("/departments", async (req, res) => {
 
   findData.forEach(department => {
     const { name=null, isTerminal=null } = department;
+    console.log(name, isTerminal);
     const blockId = isTerminal? "5e3591ba8192ac0001953528" : "5e358c38b617ea0001306996";
     templateBuilder.setQuickReplies(
       name,
