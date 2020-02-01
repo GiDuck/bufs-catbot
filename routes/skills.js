@@ -26,7 +26,7 @@ router.post("/colleges", async (req, res) => {
   );
 
   colleages.forEach(colleage => {
-    templateBuilder.setQuickReplies(colleage, "block", colleage, "학부목록", null);
+    templateBuilder.setQuickReplies(colleage, "block", colleage, "cume9dvm9mqis3bn8rh42ink", null);
   });
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
