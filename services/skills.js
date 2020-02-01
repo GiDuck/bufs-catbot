@@ -11,7 +11,7 @@ const getColleges = () => {
 const getDepartments = (colleageName) => {
     return Info.find(
       { parent: colleageName },
-      { _id: false, level: false, parent: false, isTerminal: false, value: false }
+      { _id: false, level: false, parent: false, value: false }
     );
 };
   
