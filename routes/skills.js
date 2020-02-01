@@ -18,10 +18,8 @@ router.post("/buttons", function(req, res) {
 });
 
 router.post("/colleges", async (req, res) => {
-  console.log(JSON.stringify(req.params));
   const findData = await getColleges();
   const colleages = findData.map(data => data.name);
-  console.log("colleages", colleages);
 
   const templateBuilder = new TemplateBuilder().simpleText(
     "단과대학 목록이라냥"
@@ -36,24 +34,9 @@ router.post("/colleges", async (req, res) => {
 
 router.post("/departments", function(req, res) {
   console.log(JSON.stringify(req.params));
-  //res.status(200).send();
+  console.log(JSON.stringify(req.body));
 
-  // const template = new TemplateBuilder()
-  // .simpleText("안녕 난 냥냥봇이야")
-  // .build();
 
-  // res.status(200).send(getResponseModel(template));
-});
-
-router.post("/department", function(req, res) {
-  console.log(JSON.stringify(req.params));
-  //res.status(200).send();
-
-  // const template = new TemplateBuilder()
-  // .simpleText("안녕 난 냥냥봇이야")
-  // .build();
-
-  // res.status(200).send(getResponseModel(template));
 });
 
 module.exports = router;
