@@ -19,7 +19,7 @@ const getDepartments = (colleageName) => {
 const getMajors = (depName) => {
     return Info.find(
       { parent: depName },
-      { _id: false, level: false, parent: false, isTerminal: false, value: false }
+      { _id: false, level: false, parent: false, value: false }
     );
 };
 

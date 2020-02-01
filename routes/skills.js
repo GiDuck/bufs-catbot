@@ -42,21 +42,24 @@ router.post("/departments", async (req, res) => {
   const { userRequest } = req.body;
   const colleageName = userRequest.utterance;
   const findData = await getDepartments(colleageName);
-  const departments = findData.map(data => data.name);
 
   const templateBuilder = new TemplateBuilder().simpleText(
     `${colleageName} 아래의 학부들이라냥`
   );
 
-  departments.forEach(department => {
+  findData.forEach(department => {
+    const { name=null, isTerminal=null } = department;
+    const blockId = isTerminal? "5e3591ba8192ac0001953528" : "5e358c38b617ea0001306996";
     templateBuilder.setQuickReplies(
-      department,
+      name,
       "block",
-      department,
-      "5e358c38b617ea0001306996",
+      name,
+      blockId,
       null
     );
   });
+
+  
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
 
@@ -97,8 +100,8 @@ router.post("/info/major", async (req, res) => {
   for(const key in majorInfoObj){
     responseText += `${key}: ${majorInfoObj[key]} \n`
   }
-  responseText += " \n 이라냥";
-  
+
+  responseText += "이라냥";
   const templateBuilder = new TemplateBuilder().simpleText(
     responseText
   );
