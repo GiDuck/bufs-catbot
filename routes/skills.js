@@ -5,7 +5,7 @@ var express = require("express");
 var router = express.Router();
 
 /* GET response test */
-router.get("/", function(req, res, next) {
+router.get("/", function(req, res) {
   res.send("respond success");
 });
 
@@ -38,7 +38,7 @@ router.post("/colleges", async (req, res) => {
   res.status(200).send(getResponseModel(template));
 });
 
-router.post("/departments", function(req, res) {
+router.post("/departments", async (req, res) => {
   const { userRequest } = req.body;
   const depName = userRequest.utterance;
   const findData = await getDepartments(depName);
@@ -63,12 +63,14 @@ router.post("/departments", function(req, res) {
 });
 
 
-router.post("/major", function(req, res) {
+router.post("/major", async (req, res) => {
   const template = new TemplateBuilder()
     .simpleText("학과정보라냥")
     .build();
 
   res.status(200).send(getResponseModel(template));
 });
+
+
 
 module.exports = router;
