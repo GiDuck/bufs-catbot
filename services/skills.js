@@ -25,7 +25,7 @@ const getMajors = (depName) => {
 
 const getMajorInfo = (majorName) => {
     return Info.find(
-      { parent: majorName },
+      { name: majorName, isTerminal: true },
       { _id: false, level: false, parent: false, isTerminal: false, value: false }
     );
 };
