@@ -26,7 +26,7 @@ const getMajors = (depName) => {
 const getMajorInfo = (majorName) => {
     return Info.findOne(
       { name: majorName, isTerminal: true },
-      { _id: false, level: false, parent: false, isTerminal: false, value: true }
+      { _id: false, level: false, parent: false, isTerminal: false }
     );
 };
 module.exports = { getColleges, getDepartments, getMajors, getMajorInfo };
