@@ -39,10 +39,7 @@ router.post("/colleges", async (req, res) => {
 });
 
 router.post("/departments", function(req, res) {
-  console.log("departments", req.body)
-  const { userRequest } = JSON.parse(req.body);
-  console.log(JSON.stringify(userRequest));
-
+  const { userRequest } = req.body;
   console.log(userRequest.utterance);
 });
 
