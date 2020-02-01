@@ -1,5 +1,5 @@
 const { TemplateBuilder, getResponseModel } = require("../models/response.js");
-const { getColleges } = require("../services/skills.js");
+const { getColleges, getDepartments } = require("../services/skills.js");
 
 var express = require("express");
 var router = express.Router();
@@ -40,7 +40,35 @@ router.post("/colleges", async (req, res) => {
 
 router.post("/departments", function(req, res) {
   const { userRequest } = req.body;
-  console.log(userRequest.utterance);
+  const depName = userRequest.utterance;
+  const findData = await getDepartments(depName);
+  const departments = findData.map(data => data.name);
+
+  const templateBuilder = new TemplateBuilder().simpleText(
+    `${depName} 아래의 학과들이라냥`
+  );
+
+  departments.forEach(department => {
+    templateBuilder.setQuickReplies(
+      department,
+      "block",
+      department,
+      "5e358c38b617ea0001306996",
+      null
+    );
+  });
+  const template = templateBuilder.build();
+  res.status(200).send(getResponseModel(template));
+
+});
+
+
+router.post("/major", function(req, res) {
+  const template = new TemplateBuilder()
+    .simpleText("학과정보라냥")
+    .build();
+
+  res.status(200).send(getResponseModel(template));
 });
 
 module.exports = router;

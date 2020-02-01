@@ -7,4 +7,12 @@ const getColleges = () => {
   );
 };
 
-module.exports = { getColleges };
+
+const getDepartments = (depName) => {
+    return Info.find(
+      { parent: depName },
+      { _id: false, level: false, parent: false, isTerminal: false, value: false }
+    );
+  };
+  
+module.exports = { getColleges, getDepartments };
