@@ -22,4 +22,11 @@ const getMajors = (depName) => {
       { _id: false, level: false, parent: false, isTerminal: false, value: false }
     );
 };
-module.exports = { getColleges, getDepartments, getMajors };
+
+const getMajorInfo = (majorName) => {
+    return Info.find(
+      { parent: majorName },
+      { _id: false, level: false, parent: false, isTerminal: false, value: false }
+    );
+};
+module.exports = { getColleges, getDepartments, getMajors, getMajorInfo };

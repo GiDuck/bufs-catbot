@@ -1,5 +1,5 @@
 const { TemplateBuilder, getResponseModel } = require("../models/response.js");
-const { getColleges, getDepartments, getMajors } = require("../services/skills.js");
+const { getColleges, getDepartments, getMajors, getMajorInfo } = require("../services/skills.js");
 
 var express = require("express");
 var router = express.Router();
@@ -90,6 +90,9 @@ router.post("/info/major", async (req, res) => {
   const { userRequest } = req.body;
   const majorName = userRequest.utterance;
   console.log(majorName);
+  const findData = await getMajors(majorName);
+  console.log(findData);
+
   const templateBuilder = new TemplateBuilder().simpleText(
     `${majorName} 이라냥`
   );
