@@ -89,12 +89,18 @@ router.post("/majors", async (req, res) => {
 router.post("/info/major", async (req, res) => {
   const { userRequest } = req.body;
   const majorName = userRequest.utterance;
-  console.log(majorName);
   const findData = await getMajorInfo(majorName);
-  console.log(findData);
-
+  const value = findData.value;
+  const majorInfoObj = value[0];
+  
+  let responseText = "";
+  for(const key in majorInfoObj){
+    responseText += `${key}: ${majorInfoObj[key]} \n`
+  }
+  responseText += " \n 이라냥";
+  
   const templateBuilder = new TemplateBuilder().simpleText(
-    `${majorName} 이라냥.`
+    responseText
   );
 
   const template = templateBuilder.build();
