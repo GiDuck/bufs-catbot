@@ -26,17 +26,21 @@ router.post("/colleges", async (req, res) => {
   );
 
   colleages.forEach(colleage => {
-    templateBuilder.setQuickReplies(colleage, "block", colleage, "5e2ecfcc92690d0001fc676d", null);
+    templateBuilder.setQuickReplies(
+      colleage,
+      "block",
+      colleage,
+      "5e2ecfcc92690d0001fc676d",
+      null
+    );
   });
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
 });
 
 router.post("/departments", function(req, res) {
-  console.log(JSON.stringify(req.params));
-  console.log(JSON.stringify(req.body));
-
-
+  const { userRequest } = JSON.parse(req.body);
+  console.log(JSON.stringify(userRequest.utterance));
 });
 
 module.exports = router;
