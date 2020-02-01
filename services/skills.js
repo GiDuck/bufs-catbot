@@ -8,11 +8,18 @@ const getColleges = () => {
 };
 
 
-const getDepartments = (depName) => {
+const getDepartments = (colleageName) => {
+    return Info.find(
+      { parent: colleageName },
+      { _id: false, level: false, parent: false, isTerminal: false, value: false }
+    );
+};
+  
+
+const getMajors = (depName) => {
     return Info.find(
       { parent: depName },
       { _id: false, level: false, parent: false, isTerminal: false, value: false }
     );
-  };
-  
-module.exports = { getColleges, getDepartments };
+};
+module.exports = { getColleges, getDepartments, getMajors };
