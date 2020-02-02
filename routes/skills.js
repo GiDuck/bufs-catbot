@@ -203,15 +203,12 @@ router.post("/facilities", async (req, res) => {
   const { utterance = null } = userRequest;
   const facName = utterance.replace(/\s/, '') === "발화내용" ? null : utterance;
   const findData = await getFacilities(facName);
-  console.log("findData", JSON.stringify(findData));
-
-  const facilities = findData.map(data => data.name);
 
   const templateBuilder = new TemplateBuilder().simpleText(
     `부산외대 내에 있는 편의시설 정보라냥`
   );
 
-  facilities.forEach(facility => {
+  findData.forEach(facility => {
     const blockId = facility.isTerminal ? "5e368b76b617ea0001306b69" : "5e368ac492690d0001fc8e5e";
     templateBuilder.setQuickReplies(
       facility.name,
