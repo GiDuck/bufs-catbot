@@ -1,5 +1,5 @@
 const { TemplateBuilder, getResponseModel } = require("../models/response.js");
-const { getColleges, getDepartments, getMajors, getMajorInfo } = require("../services/skills.js");
+const { getColleges, getDepartments, getMajors, getMajorInfo, getAgents, getAgentInfo } = require("../services/skills.js");
 
 var express = require("express");
 var router = express.Router();
@@ -110,6 +110,48 @@ router.post("/info/major", async (req, res) => {
   res.status(200).send(getResponseModel(template));
 });
 
+router.post("/agents", async (req, res) => {
+  const { userRequest } = req.body;
+  const findData = await getAgents();
+  const agents = findData.map(data => data.name);
+
+  const templateBuilder = new TemplateBuilder().simpleText(
+    `부산외대의 기관들이라냥`
+  );
+
+  agents.forEach(agent => {
+    templateBuilder.setQuickReplies(
+      agent,
+      "block",
+      agent,
+      "5e36686eb617ea0001306b0d",
+      null
+    );
+  });
+  const template = templateBuilder.build();
+  res.status(200).send(getResponseModel(template));
+});
+
+router.post("/info/agent", async (req, res) => {
+  const { userRequest } = req.body;
+  const agentName = userRequest.utterance;
+  const findData = await getAgentInfo(agentName);
+  const value = findData.value;
+  const agentInfoObj = value[0];
+  
+  let responseText = "";
+  for(const key in agentInfoObj){
+    responseText += `${key}: ${agentInfoObj[key]} \n`
+  }
+
+  responseText += "이라냥";
+  const templateBuilder = new TemplateBuilder().simpleText(
+    responseText
+  );
+
+  const template = templateBuilder.build();
+  res.status(200).send(getResponseModel(template));
+});
 
 
 module.exports = router;

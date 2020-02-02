@@ -29,4 +29,21 @@ const getMajorInfo = (majorName) => {
       { _id: false, level: false, parent: false, isTerminal: false }
     );
 };
-module.exports = { getColleges, getDepartments, getMajors, getMajorInfo };
+
+const getAgents = (agentName) => {
+    return Info.find(
+      { parent: agentName },
+      { _id: false, level: false, parent: false, value: false }
+    );
+};
+
+const getAgentInfo = (agentName) => {
+    return Info.findOne(
+      { name: agentName, isTerminal: true },
+      { _id: false, level: false, parent: false, isTerminal: false }
+    );
+};
+
+
+
+module.exports = { getColleges, getDepartments, getMajors, getMajorInfo, getAgents, getAgentInfo };
