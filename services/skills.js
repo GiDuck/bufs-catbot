@@ -56,7 +56,7 @@ const getFavoriteInfo = infoName => {
   );
 };
 
-const getFacilities = (parentName="편의시설") => {
+const getFacilities = (parentName) => {
   return Info.find(
     { parent: parentName },
     { _id: false, level: false, parent: false, value: false }
