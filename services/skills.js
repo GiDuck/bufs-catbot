@@ -30,9 +30,9 @@ const getMajorInfo = (majorName) => {
     );
 };
 
-const getAgents = (agentName) => {
+const getAgents = () => {
     return Info.find(
-      { parent: agentName },
+      { parent: "기관정보찾기" },
       { _id: false, level: false, parent: false, value: false }
     );
 };
