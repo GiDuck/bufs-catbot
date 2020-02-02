@@ -1,5 +1,14 @@
 const { TemplateBuilder, getResponseModel } = require("../models/response.js");
-const { getColleges, getDepartments, getMajors, getMajorInfo, getAgents, getAgentInfo } = require("../services/skills.js");
+const {
+  getColleges,
+  getDepartments,
+  getMajors,
+  getMajorInfo,
+  getAgents,
+  getAgentInfo,
+  getFavoriteInfoList,
+  getFavoriteInfo
+} = require("../services/skills.js");
 
 var express = require("express");
 var router = express.Router();
@@ -48,23 +57,16 @@ router.post("/departments", async (req, res) => {
   );
 
   findData.forEach(department => {
-    const { name=null, isTerminal=null } = department;
-    const blockId = isTerminal? "5e3591ba8192ac0001953528" : "5e358c38b617ea0001306996";
-    templateBuilder.setQuickReplies(
-      name,
-      "block",
-      name,
-      blockId,
-      null
-    );
+    const { name = null, isTerminal = null } = department;
+    const blockId = isTerminal
+      ? "5e3591ba8192ac0001953528"
+      : "5e358c38b617ea0001306996";
+    templateBuilder.setQuickReplies(name, "block", name, blockId, null);
   });
 
-  
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
-
 });
-
 
 router.post("/majors", async (req, res) => {
   const { userRequest } = req.body;
@@ -95,16 +97,14 @@ router.post("/info/major", async (req, res) => {
   const findData = await getMajorInfo(majorName);
   const value = findData.value;
   const majorInfoObj = value[0];
-  
+
   let responseText = "";
-  for(const key in majorInfoObj){
-    responseText += `${key}: ${majorInfoObj[key]} \n`
+  for (const key in majorInfoObj) {
+    responseText += `${key}: ${majorInfoObj[key]} \n`;
   }
 
   responseText += "이라냥";
-  const templateBuilder = new TemplateBuilder().simpleText(
-    responseText
-  );
+  const templateBuilder = new TemplateBuilder().simpleText(responseText);
 
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
@@ -135,23 +135,59 @@ router.post("/info/agent", async (req, res) => {
   const { userRequest } = req.body;
   const agentName = userRequest.utterance;
   const findData = await getAgentInfo(agentName);
-  console.log(agentName, JSON.stringify(findData));
   const value = findData.value;
   const agentInfoObj = value[0];
-  
+
   let responseText = "";
-  for(const key in agentInfoObj){
-    responseText += `${key}: ${agentInfoObj[key]} \n`
+  for (const key in agentInfoObj) {
+    responseText += `${key}: ${agentInfoObj[key]} \n`;
   }
 
   responseText += "이라냥";
-  const templateBuilder = new TemplateBuilder().simpleText(
-    responseText
-  );
+  const templateBuilder = new TemplateBuilder().simpleText(responseText);
 
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
 });
 
+router.post("/favoriteinfo", async (req, res) => {
+  const findData = await getFavoriteInfoList();
+  const infoList = findData.map(data => data.name);
+
+  const templateBuilder = new TemplateBuilder().simpleText(
+    `집사들이 자주찾는 정보라냥`
+  );
+
+  infoList.forEach(info => {
+    templateBuilder.setQuickReplies(
+      info,
+      "block",
+      info,
+      "5e366ffd92690d0001fc8e14",
+      null
+    );
+  });
+  const template = templateBuilder.build();
+  res.status(200).send(getResponseModel(template));
+});
+
+router.post("/info/favorite", async (req, res) => {
+  const { userRequest } = req.body;
+  const infoName = userRequest.utterance;
+  const findData = await getFavoriteInfo(infoName);
+  const value = findData.value;
+  const favoriteInfoObj = value[0];
+
+  let responseText = "";
+  for (const key in favoriteInfoObj) {
+    responseText += `${key}: ${favoriteInfoObj[key]} \n`;
+  }
+
+  responseText += "이라냥";
+  const templateBuilder = new TemplateBuilder().simpleText(responseText);
+
+  const template = templateBuilder.build();
+  res.status(200).send(getResponseModel(template));
+});
 
 module.exports = router;
