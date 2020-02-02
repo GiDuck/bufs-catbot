@@ -175,6 +175,7 @@ router.post("/info/favorite", async (req, res) => {
   const { userRequest } = req.body;
   const infoName = userRequest.utterance;
   const findData = await getFavoriteInfo(infoName);
+  console.log(infoName, JSON.stringify(findData))
   const value = findData.value;
   const favoriteInfoObj = value[0];
 
