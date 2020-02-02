@@ -7,7 +7,9 @@ const {
   getAgents,
   getAgentInfo,
   getFavoriteInfoList,
-  getFavoriteInfo
+  getFavoriteInfo,
+  getFacilities,
+  getFacilityInfo
 } = require("../services/skills.js");
 
 var express = require("express");
@@ -150,6 +152,8 @@ router.post("/info/agent", async (req, res) => {
   res.status(200).send(getResponseModel(template));
 });
 
+
+
 router.post("/favoriteinfo", async (req, res) => {
   const findData = await getFavoriteInfoList();
   const infoList = findData.map(data => data.name);
@@ -171,6 +175,7 @@ router.post("/favoriteinfo", async (req, res) => {
   res.status(200).send(getResponseModel(template));
 });
 
+
 router.post("/info/favorite", async (req, res) => {
   const { userRequest } = req.body;
   const infoName = userRequest.utterance;
@@ -190,5 +195,54 @@ router.post("/info/favorite", async (req, res) => {
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
 });
+
+
+
+router.post("/facilities", async (req, res) => {
+  const { userRequest } = req.body;
+  const facName = userRequest.utterance;
+  const findData = await getFacilities(facName);
+  const facilities = findData.map(data => data.name);
+
+  const templateBuilder = new TemplateBuilder().simpleText(
+    `부산외대 내에 있는 편의시설 정보라냥`
+  );
+
+  facilities.forEach(facility => {
+    const blockId = facility.isTerminal ? "5e368b76b617ea0001306b69" : "5e368ac492690d0001fc8e5e";
+    templateBuilder.setQuickReplies(
+      facility.name,
+      "block",
+      facility.name,
+      blockId,
+      null
+    );
+  });
+  const template = templateBuilder.build();
+  res.status(200).send(getResponseModel(template));
+});
+
+router.post("/info/facility", async (req, res) => {
+  const { userRequest } = req.body;
+  const facName = userRequest.utterance;
+
+  const findData = await getFacilityInfo(facName);
+  const value = findData.value;
+  const facilityInfoObj = value[0];
+
+  let responseText = "";
+  for (const key in facilityInfoObj) {
+    responseText += `${key}: ${facilityInfoObj[key]} \n`;
+  }
+
+  responseText += "이라냥";
+  const templateBuilder = new TemplateBuilder().simpleText(responseText);
+
+  const template = templateBuilder.build();
+  res.status(200).send(getResponseModel(template));
+});
+
+
+
 
 module.exports = router;

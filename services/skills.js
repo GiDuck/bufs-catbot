@@ -56,6 +56,20 @@ const getFavoriteInfo = infoName => {
   );
 };
 
+const getFacilities = (parentName="편의시설") => {
+  return Info.find(
+    { parent: parentName },
+    { _id: false, level: false, parent: false, value: false }
+  );
+};
+
+const getFacilityInfo = facName => {
+  return Info.findOne(
+    { name: facName },
+    { _id: false, level: false, parent: false, isTerminal: false }
+  );
+};
+
 module.exports = {
   getColleges,
   getDepartments,
@@ -64,5 +78,7 @@ module.exports = {
   getAgents,
   getAgentInfo,
   getFavoriteInfoList,
-  getFavoriteInfo
+  getFavoriteInfo,
+  getFacilities,
+  getFacilityInfo
 };
