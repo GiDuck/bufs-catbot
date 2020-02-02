@@ -1,57 +1,60 @@
 const { Info } = require("../models/info.js");
 
-const _findByParentName = (parentName, queryOpts = {}, projectionOpts = {}) => {
-  return Info.find(
-    { parent: parentName, ...queryOpts },
-    { _id: false, level: false, parent: false, ...projectionOpts }
-  );
-};
-
-const _findOneByParentName = (
-  parentName,
-  queryOpts = {},
-  projectionOpts = {}
-) => {
-  return Info.findOne(
-    { parent: parentName, ...queryOpts },
-    { _id: false, level: false, parent: false, ...projectionOpts }
-  );
-};
-
 const getColleges = () => {
-  return _findByParentName("학과정보찾기", null, {
-    isTerminal: false,
-    value: false
-  });
+  return Info.find(
+    { parent: "학과정보찾기" },
+    { _id: false, level: false, parent: false, isTerminal: false, value: false }
+  );
 };
 
 const getDepartments = colleageName => {
-  return _findByParentName(colleageName, null, { value: false });
+  return Info.find(
+    { parent: colleageName },
+    { _id: false, level: false, parent: false, value: false }
+  );
 };
 
 const getMajors = depName => {
-  return _findByParentName(depName, null, { value: false });
+  return Info.find(
+    { parent: depName },
+    { _id: false, level: false, parent: false, value: false }
+  );
 };
 
 const getMajorInfo = majorName => {
-  return _findOneByParentName(majorName, null, { isTerminal: false });
+  return Info.findOne(
+    { name: majorName, isTerminal: true },
+    { _id: false, level: false, parent: false, isTerminal: false }
+  );
 };
 
 const getAgents = () => {
-  return _findByParentName("기관정보찾기", null, { value: false });
+  return Info.find(
+    { parent: "기관정보찾기" },
+    { _id: false, level: false, parent: false, value: false }
+  );
 };
 
 const getAgentInfo = agentName => {
-  return _findOneByParentName(agentName, null, { isTerminal: false });
+  return Info.findOne(
+    { name: agentName, isTerminal: true },
+    { _id: false, level: false, parent: false, isTerminal: false }
+  );
 };
 
 const getFavoriteInfoList = () => {
-  return _findByParentName("자주찾는정보", null, { value: false });
-}
+  return Info.find(
+    { parent: "자주찾는정보" },
+    { _id: false, level: false, parent: false, value: false }
+  );
+};
 
 const getFavoriteInfo = infoName => {
-  return _findOneByParentName(infoName, null, { isTerminal: false });
-}
+  return Info.findOne(
+    { name: infoName, isTerminal: true },
+    { _id: false, level: false, parent: false, isTerminal: false }
+  );
+};
 
 module.exports = {
   getColleges,
