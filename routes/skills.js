@@ -202,8 +202,9 @@ router.post("/facilities", async (req, res) => {
   const { userRequest } = req.body;
   const { utterance = null } = userRequest;
   const facName = utterance.replace(/\s/, '') === "발화내용" ? null : utterance;
-  console.log("fac Name", facName, utterance);
   const findData = await getFacilities(facName);
+  console.log("findData", JSON.stringify(findData));
+
   const facilities = findData.map(data => data.name);
 
   const templateBuilder = new TemplateBuilder().simpleText(
