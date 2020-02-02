@@ -111,7 +111,6 @@ router.post("/info/major", async (req, res) => {
 });
 
 router.post("/agents", async (req, res) => {
-  const { userRequest } = req.body;
   const findData = await getAgents();
   const agents = findData.map(data => data.name);
 
