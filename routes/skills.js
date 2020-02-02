@@ -264,6 +264,10 @@ router.post("/dormitory", async (req, res) => {
   res.status(200).send(getResponseModel(template));
 });
 
+router.get("/find/contact", async (req, res) => {
+  res.render('contact', { title: '교내 번호 찾기' });
+});
+
 router.post("/find/contact", async (req, res) => {
   res.render('contact', { title: '교내 번호 찾기' });
 });
