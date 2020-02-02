@@ -265,15 +265,7 @@ router.post("/dormitory", async (req, res) => {
 });
 
 router.post("/find/contact", async (req, res) => {
-  const { userRequest } = req.body;
-  const keyword = userRequest.utterance;
-  console.log("keyword", keyword);
-  const templateBuilder = new TemplateBuilder().simpleText(
-    `${keyword} 를 검색했다냥`
-  );
-
-  const template = templateBuilder.build();
-  res.status(200).send(getResponseModel(template));
+  res.render('contact', { title: '교내 번호 찾기' });
 });
 
 
