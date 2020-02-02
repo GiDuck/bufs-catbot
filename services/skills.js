@@ -70,6 +70,13 @@ const getFacilityInfo = facName => {
   );
 };
 
+const getDormitoy = () => {
+  return Info.find(
+    { parent: "기숙사" },
+    { _id: false, level: false, parent: false, value: false }
+  );
+};
+
 module.exports = {
   getColleges,
   getDepartments,
@@ -80,5 +87,6 @@ module.exports = {
   getFavoriteInfoList,
   getFavoriteInfo,
   getFacilities,
-  getFacilityInfo
+  getFacilityInfo,
+  getDormitoy
 };

@@ -9,7 +9,8 @@ const {
   getFavoriteInfoList,
   getFavoriteInfo,
   getFacilities,
-  getFacilityInfo
+  getFacilityInfo,
+  getDormitoy
 } = require("../services/skills.js");
 
 var express = require("express");
@@ -142,7 +143,7 @@ router.post("/info/agent", async (req, res) => {
 
   let responseText = "";
   for (const key in agentInfoObj) {
-    responseText += `${key}: ${agentInfoObj[key]} \n`;
+    responseText += `${key || ""}: ${favoriteInfoObj[key]  || "" } \n`;
   }
 
   responseText += "이라냥";
@@ -186,7 +187,7 @@ router.post("/info/favorite", async (req, res) => {
 
   let responseText = "";
   for (const key in favoriteInfoObj) {
-    responseText += `${key}: ${favoriteInfoObj[key]} \n`;
+    responseText += `${key || ""}: ${favoriteInfoObj[key]  || "" } \n`;
   }
 
   responseText += "이라냥";
@@ -241,6 +242,29 @@ router.post("/info/facility", async (req, res) => {
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
 });
+
+router.post("/dormitory", async (req, res) => {
+  const findData = await getDormitoy();
+  const dormitories = findData.map(data => data.name);
+
+  const templateBuilder = new TemplateBuilder().simpleText(
+    `기숙사 정보라냥`
+  );
+
+  dormitories.forEach(dormitory => {
+    templateBuilder.setQuickReplies(
+      dormitory,
+      "block",
+      dormitory,
+      "5e36686eb617ea0001306b0d",
+      null
+    );
+  });
+  const template = templateBuilder.build();
+  res.status(200).send(getResponseModel(template));
+});
+
+
 
 
 
