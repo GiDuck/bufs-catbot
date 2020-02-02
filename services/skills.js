@@ -50,9 +50,8 @@ const getFavoriteInfoList = () => {
 };
 
 const getFavoriteInfo = infoName => {
-  console.log("infoName:: ",  infoName);
   return Info.findOne(
-    { name: infoName, isTerminal: true },
+    { name: infoName },
     { _id: false, level: false, parent: false, isTerminal: false }
   );
 };
