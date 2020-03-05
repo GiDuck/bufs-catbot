@@ -1,6 +1,13 @@
 extends layout
-
+script(type='text/javascript').
+    console.log("?");
+    const onChangeText = (e)=>{
+        console.log("change..", e.target.value);
+    };
 block content
-  h1= 교내 전화번호 찾기
-  p 찾을 전화번호를 입력하세요
-  input
+  h1= title
+  p 검색할 전화번호를 입력하세요
+  div
+    input#input_field(onchange='onChangeText()')
+    button#find_contact 찾기
+
