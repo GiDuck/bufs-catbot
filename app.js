@@ -42,6 +42,32 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+
+app.use(logger({
+  format: 'dev',
+  stream: fs.createWriteStream('app.log', {'flags': 'w'})
+}));
+
+app.use(logger(":remote-addr"), function(req, res, next){
+  next();
+});
+ 
+app.use(logger(":method"), function(req, res, next){
+  next();
+});
+ 
+app.use(logger(":url"), function(req, res, next){
+  next();
+});
+ 
+app.use(logger(":date"), function(req, res, next){
+  next();
+});
+ 
+app.use(logger(":status"), function(req, res, next){
+  next();
+});
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

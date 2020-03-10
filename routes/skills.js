@@ -226,6 +226,8 @@ router.post("/facilities", async (req, res) => {
 router.post("/info/facility", async (req, res) => {
   const { userRequest } = req.body;
   const facName = userRequest.utterance;
+  console.log(JSON.stringify(userRequest, null, 2));
+  console.log(`facName... ${facName}`);
 
   const findData = await getFacilityInfo(facName);
   const value = findData.value;
