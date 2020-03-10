@@ -12,6 +12,8 @@ const {
   getFacilityInfo,
   getDormitoy
 } = require("../services/skills.js");
+const { logger } = require("../logger.js");
+
 
 var express = require("express");
 var router = express.Router();
@@ -19,17 +21,26 @@ var router = express.Router();
 /* GET response test */
 router.get("/", function(req, res) {
   res.send("respond success");
+  
 });
 
 router.post("/buttons", function(req, res) {
+  try{
   const template = new TemplateBuilder()
     .simpleText("안녕 난 냥냥봇이야")
     .build();
 
   res.status(200).send(getResponseModel(template));
+  
+  }catch(e){
+    res.status(500).send();
+    logger.error(e);
+    
+  }
 });
 
 router.post("/colleges", async (req, res) => {
+  try{
   const findData = await getColleges();
   const colleages = findData.map(data => data.name);
 
@@ -48,9 +59,14 @@ router.post("/colleges", async (req, res) => {
   });
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
+  }catch(e){
+    res.status(500).send();
+    logger.error(e);
+  }
 });
 
 router.post("/departments", async (req, res) => {
+  try{
   const { userRequest } = req.body;
   const colleageName = userRequest.utterance;
   const findData = await getDepartments(colleageName);
@@ -69,9 +85,15 @@ router.post("/departments", async (req, res) => {
 
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
+  }catch(e){
+  res.status(500).send();
+  logger.error(e);
+
+  }
 });
 
 router.post("/majors", async (req, res) => {
+  try{
   const { userRequest } = req.body;
   const depName = userRequest.utterance;
   const findData = await getMajors(depName);
@@ -92,9 +114,15 @@ router.post("/majors", async (req, res) => {
   });
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
+  }catch(e){
+  res.status(500).send();
+  logger.error(e);
+
+  }
 });
 
 router.post("/info/major", async (req, res) => {
+  try{
   const { userRequest } = req.body;
   const majorName = userRequest.utterance;
   const findData = await getMajorInfo(majorName);
@@ -111,9 +139,15 @@ router.post("/info/major", async (req, res) => {
 
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
+  }catch(e){
+  res.status(500).send();
+  logger.error(e);
+
+  }
 });
 
 router.post("/agents", async (req, res) => {
+  try{
   const findData = await getAgents();
   const agents = findData.map(data => data.name);
 
@@ -132,10 +166,16 @@ router.post("/agents", async (req, res) => {
   });
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
+  }catch(e){
+  res.status(500).send();
+  logger.error(e);
+
+  }
 });
 
 router.post("/info/agent", async (req, res) => {
-  const { userRequest } = req.body;
+  try{
+      const { userRequest } = req.body;
   const agentName = userRequest.utterance;
   const findData = await getAgentInfo(agentName);
   const value = findData.value;
@@ -151,11 +191,17 @@ router.post("/info/agent", async (req, res) => {
 
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
+  }catch(e){
+  res.status(500).send();
+  logger.error(e);
+
+  }
 });
 
 
 
 router.post("/favoriteinfo", async (req, res) => {
+  try{
   const findData = await getFavoriteInfoList();
   const infoList = findData.map(data => data.name);
 
@@ -174,10 +220,16 @@ router.post("/favoriteinfo", async (req, res) => {
   });
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
+  }catch(e){
+  res.status(500).send();
+  logger.error(e);
+
+  }
 });
 
 
 router.post("/info/favorite", async (req, res) => {
+try{
   const { userRequest } = req.body;
   const infoName = userRequest.utterance;
 
@@ -195,11 +247,17 @@ router.post("/info/favorite", async (req, res) => {
 
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
+}catch(e){
+  res.status(500).send();
+  logger.error(e);
+
+  }
 });
 
 
 
 router.post("/facilities", async (req, res) => {
+  try{
   const { userRequest } = req.body;
   const { utterance = null } = userRequest;
   const facName = utterance.replace(/\s/, '') === "발화내용" ? null : utterance;
@@ -221,9 +279,15 @@ router.post("/facilities", async (req, res) => {
   });
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
+  }catch(e){
+  res.status(500).send();
+  logger.error(e);
+
+  }
 });
 
 router.post("/info/facility", async (req, res) => {
+  try{
   const { userRequest } = req.body;
   const facName = userRequest.utterance;
   console.log(JSON.stringify(userRequest, null, 2));
@@ -243,9 +307,16 @@ router.post("/info/facility", async (req, res) => {
 
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
+
+}catch(e){
+  res.status(500).send();
+  logger.error(e);
+
+}
 });
 
 router.post("/dormitory", async (req, res) => {
+  try{
   const findData = await getDormitoy();
   const dormitories = findData.map(data => data.name);
 
@@ -264,6 +335,12 @@ router.post("/dormitory", async (req, res) => {
   });
   const template = templateBuilder.build();
   res.status(200).send(getResponseModel(template));
+
+}catch(e){
+  res.status(500).send();
+  logger.error(e);
+
+  }
 });
 
 router.post("/find/contact", async (req, res) => {
