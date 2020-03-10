@@ -1,5 +1,4 @@
 // config/logConfig.js
-"use strict"
 const { createLogger, format, transports } = require("winston")
 require("winston-daily-rotate-file")
 const fs = require("fs")
