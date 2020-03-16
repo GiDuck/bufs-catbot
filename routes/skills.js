@@ -333,7 +333,7 @@ router.post("/dormitory", async (req, res) => {
       dormitory,
       "block",
       dormitory,
-      "5e366ffd92690d0001fc8e14",
+      "5e36952f92690d0001fc8e8e",
       null
     );
   });
