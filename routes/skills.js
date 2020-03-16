@@ -294,8 +294,6 @@ router.post("/info/facility", async (req, res) => {
   try{
   const { userRequest } = req.body;
   const facName = userRequest.utterance;
-  console.log(JSON.stringify(userRequest, null, 2));
-  console.log(`facName... ${facName}`);
 
   const findData = await getFacilityInfo(facName);
   const value = findData.value;
@@ -333,7 +331,7 @@ router.post("/dormitory", async (req, res) => {
       dormitory,
       "block",
       dormitory,
-      "5e36952f92690d0001fc8e8e",
+      "5e366ffd92690d0001fc8e14",
       null
     );
   });
