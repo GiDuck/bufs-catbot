@@ -164,7 +164,9 @@ router.post("/agents", async (req, res) => {
       null
     );
   });
+
   const template = templateBuilder.build();
+
   res.status(200).send(getResponseModel(template));
   }catch(e){
   res.status(500).send();
