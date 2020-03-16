@@ -166,7 +166,6 @@ router.post("/agents", async (req, res) => {
   });
 
   const template = templateBuilder.build();
-  console.log(JSON.stringify(template, null, 2));
 
   res.status(200).send(getResponseModel(template));
   }catch(e){
@@ -179,6 +178,7 @@ router.post("/agents", async (req, res) => {
 router.post("/info/agent", async (req, res) => {
   try{
       const { userRequest } = req.body;
+  console.log(JSON.stringify(userRequest, null, 2));
   const agentName = userRequest.utterance;
   const findData = await getAgentInfo(agentName);
   const value = findData.value;
