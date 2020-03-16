@@ -1,7 +1,5 @@
-'use strict';
-
-module.exports = {
-    apps: [
+{
+    "apps": [
         {
             name: "BUFS-CATBOT",
             script: "./bin/www",
