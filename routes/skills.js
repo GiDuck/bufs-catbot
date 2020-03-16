@@ -190,6 +190,8 @@ router.post("/info/agent", async (req, res) => {
   }
 
   responseText += "이라냥";
+    console.log(responseText);
+
   const templateBuilder = new TemplateBuilder().simpleText(responseText);
 
   const template = templateBuilder.build();
