@@ -178,9 +178,9 @@ router.post("/agents", async (req, res) => {
 router.post("/info/agent", async (req, res) => {
   try{
       const { userRequest } = req.body;
-  console.log(JSON.stringify(userRequest, null, 2));
   const agentName = userRequest.utterance;
   const findData = await getAgentInfo(agentName);
+  console.log(JSON.stringify(findData, null, 2));
   const value = findData.value;
   const agentInfoObj = value[0];
 

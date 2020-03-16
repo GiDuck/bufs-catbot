@@ -36,7 +36,6 @@ const getAgents = () => {
 };
 
 const getAgentInfo = agentName => {
-  console.log("get Agent Info", agentName);
   return Info.findOne(
     { name: agentName, isTerminal: true },
     { _id: false, level: false, parent: false, isTerminal: false }
