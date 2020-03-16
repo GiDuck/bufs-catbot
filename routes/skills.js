@@ -177,20 +177,19 @@ router.post("/agents", async (req, res) => {
 
 router.post("/info/agent", async (req, res) => {
   try{
-      const { userRequest } = req.body;
+  const { userRequest } = req.body;
   const agentName = userRequest.utterance;
   const findData = await getAgentInfo(agentName);
-  console.log(JSON.stringify(findData, null, 2));
   const value = findData.value;
   const agentInfoObj = value[0];
 
   let responseText = "";
   for (const key in agentInfoObj) {
-    responseText += `${key || ""}: ${favoriteInfoObj[key]  || "" } \n`;
+
+    responseText += `${key || ""}: ${agentInfoObj[key]  || "" } \n`;
   }
 
   responseText += "이라냥";
-    console.log(responseText);
 
   const templateBuilder = new TemplateBuilder().simpleText(responseText);
 
