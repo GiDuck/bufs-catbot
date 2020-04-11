@@ -10,7 +10,9 @@ const {
   getFavoriteInfo,
   getFacilities,
   getFacilityInfo,
-  getDormitoy
+  getDormitoy,
+  getNotifications,
+  getNotificationInfo
 } = require("../services/skills.js");
 const { logger } = require("../logger.js");
 
@@ -18,12 +20,15 @@ const { logger } = require("../logger.js");
 var express = require("express");
 var router = express.Router();
 
-/* GET response test */
+/* Default */
 router.get("/", function(req, res) {
-  res.send("respond success");
+  res.status(200).send("respond success");
   
 });
 
+/*
+  @deprecated
+*/
 router.post("/buttons", function(req, res) {
   try{
   const template = new TemplateBuilder()
@@ -39,6 +44,12 @@ router.post("/buttons", function(req, res) {
   }
 });
 
+/**
+하위 단과 대학 목록 가져오기
+--
+@required @param  { object } userRequest.utterance 검색할 전공 이름이 존재하여야 함. 
+@return { object } 반환할 단과 대학 리스트를 담은 응답 템플릿
+ */
 router.post("/colleges", async (req, res) => {
   try{
   const findData = await getColleges();
@@ -65,7 +76,14 @@ router.post("/colleges", async (req, res) => {
   }
 });
 
-router.post("/departments", async (req, res) => {
+/**
+하위 학부 목록 가져오기
+--
+@required @param  { object } userRequest.utterance 검색할 학부 이름이 존재하여야 함. 
+@return { object } 반환할 기관 리스트를 담은 응답 템플릿
+ */
+ 
+ router.post("/departments", async (req, res) => {
   try{
   const { userRequest } = req.body;
   const colleageName = userRequest.utterance;
@@ -92,6 +110,12 @@ router.post("/departments", async (req, res) => {
   }
 });
 
+/**
+하위 학과 목록 가져오기
+--
+@required @param  { Object } userRequest.utterance 검색할 전공 이름이 존재하여야 함. 
+@return { Object } 반환할 기관 리스트를 담은 응답 템플릿
+ */
 router.post("/majors", async (req, res) => {
   try{
   const { userRequest } = req.body;
@@ -121,6 +145,12 @@ router.post("/majors", async (req, res) => {
   }
 });
 
+/**
+최하위 레벨에 있는 단일 학과 정보 가져오기
+--
+@required @param  { object } userRequest.utterance 검색할 전공 이름이 존재하여야 함. 
+@return { string } 문자열화 된 반환할 학과 정보
+ */
 router.post("/info/major", async (req, res) => {
   try{
   const { userRequest } = req.body;
@@ -146,6 +176,12 @@ router.post("/info/major", async (req, res) => {
   }
 });
 
+/**
+교내 기관 목록 가져오기
+--
+@required @param  { Object } userRequest.utterance 검색할 기관 이름. 
+@return { Object } 반환할 기관 리스트를 담은 응답 템플릿
+ */
 router.post("/agents", async (req, res) => {
   try{
   const findData = await getAgents();
@@ -175,6 +211,12 @@ router.post("/agents", async (req, res) => {
   }
 });
 
+/**
+교내 기관 단일 정보 가져오기
+--
+@required @param  { Object } userRequest.utterance 검색할 기관 이름. 
+@return { string } 반환할 기관의 정보를 담은 문자열
+ */
 router.post("/info/agent", async (req, res) => {
   try{
   const { userRequest } = req.body;
@@ -203,7 +245,11 @@ router.post("/info/agent", async (req, res) => {
 });
 
 
-
+/**
+즐겨찾는 정보 가져오기
+--
+@return { object } 즐겨찾기 하위 목록을 담은 템플릿 객체
+ */
 router.post("/favoriteinfo", async (req, res) => {
   try{
   const findData = await getFavoriteInfoList();
@@ -231,7 +277,12 @@ router.post("/favoriteinfo", async (req, res) => {
   }
 });
 
-
+/**
+교내 기관 단일 정보 가져오기
+--
+@required @param  { Object } userRequest.utterance 검색할 기관 이름. 
+@return { obejct } 반환할 기관의 정보를 담은 문자열 템플릿 객체
+ */
 router.post("/info/favorite", async (req, res) => {
 try{
   const { userRequest } = req.body;
@@ -259,7 +310,12 @@ try{
 });
 
 
-
+/**
+교내 편의시설 정보 가져오기
+--
+@required @param  { Object } userRequest.utterance 검색할 편의시설 이름. 
+@return { obejct } 반환할 하위 편의시설 목록을 담은 템플릿 객체
+ */
 router.post("/facilities", async (req, res) => {
   try{
   const { userRequest } = req.body;
@@ -290,6 +346,12 @@ router.post("/facilities", async (req, res) => {
   }
 });
 
+/**
+교내 편의시설 단일 정보 가져오기
+--
+@required @param  { Object } userRequest.utterance 검색할 편의시설 이름. 
+@return { obejct } 반환할 편의시설 정보를 담은 템플릿 객체
+ */
 router.post("/info/facility", async (req, res) => {
   try{
   const { userRequest } = req.body;
@@ -317,6 +379,11 @@ router.post("/info/facility", async (req, res) => {
 }
 });
 
+/**
+기숙사 정보 하위 목록 가져오기 
+--
+@return { string } 반환할 기숙사 정보를 담은 템플릿 객체
+ */
 router.post("/dormitory", async (req, res) => {
   try{
   const findData = await getDormitoy();
@@ -345,9 +412,79 @@ router.post("/dormitory", async (req, res) => {
   }
 });
 
-router.post("/find/contact", async (req, res) => {
-  //res.render('contact', { title: '교내 번호 찾기' });
+
+/**
+공지사항 하위 정보 가져오기 
+--
+@return { Object } 반환할 공지사항 리스트를 담은 템플릿 객체
+ */
+router.post("/notifications", async (req, res) => {
+  try{
+  const findData = await getNotifications();
+  const notifications = findData.map(data => data.name);
+
+  const templateBuilder = new TemplateBuilder().simpleText(
+    `공지사항 목록 이라냥`
+  );
+
+  notifications.forEach(noti => {
+    templateBuilder.setQuickReplies(
+      noti,
+      "block",
+      noti,
+      "5e917989058b2200015adea0",
+      null
+    );
+  });
+  const template = templateBuilder.build();
+  res.status(200).send(getResponseModel(template));
+
+}catch(e){
+  res.status(500).send();
+  logger.error(e);
+
+  }
 });
+
+
+/**
+공지사항 단일 정보 가져오기
+--
+@required @param  { Object } userRequest.utterance 검색할 공지사항 이름. 
+@return { obejct } 반환할 공지사항 정보를 담은 템플릿 객체
+ */
+router.post("/notifications/info", async (req, res) => {
+  try{
+  const { userRequest } = req.body;
+  const notiName = userRequest.utterance;
+
+  const findData = await getNotificationInfo(notiName);
+  const value = findData.value;
+  const facilityInfoObj = value[0];
+
+  let responseText = "";
+  for (const key in facilityInfoObj) {
+    responseText += `${key}: ${facilityInfoObj[key]} \n`;
+  }
+
+  responseText += "이라냥";
+  const templateBuilder = new TemplateBuilder().simpleText(responseText);
+
+  const template = templateBuilder.build();
+  res.status(200).send(getResponseModel(template));
+
+}catch(e){
+  res.status(500).send();
+  logger.error(e);
+
+}
+});
+
+
+router.post("/find/contact", async (req, res) => {
+  res.render('contact', { title: '교내 번호 찾기' });
+});
+
 
 
 

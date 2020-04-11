@@ -1,5 +1,12 @@
 const { Info } = require("../models/info.js");
 
+/**
+
+  Skills에서 들어오는 요청을 받는 Service 겸 Repository 역할을 하는 컴포넌트
+  
+
+ */
+
 const getColleges = () => {
   return Info.find(
     { parent: "학과정보찾기" },
@@ -77,6 +84,21 @@ const getDormitoy = () => {
   );
 };
 
+
+const getNotifications = () => {
+  return Info.find(
+    { parent: "공지사항" },
+    { _id: false, level: false, parent: false, isTerminal: false }
+  );
+};
+
+const getNotificationInfo = notiName => {
+  return Info.findOne(
+    { name: notiName },
+    { _id: false, level: false, parent: false, isTerminal: false }
+  );
+};
+
 module.exports = {
   getColleges,
   getDepartments,
@@ -88,5 +110,7 @@ module.exports = {
   getFavoriteInfo,
   getFacilities,
   getFacilityInfo,
-  getDormitoy
+  getDormitoy,
+  getNotifications,
+  getNotificationInfo
 };
