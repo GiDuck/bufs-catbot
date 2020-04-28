@@ -14,7 +14,6 @@ const {
   getNotifications,
   getNotificationInfo
 } = require("../services/skills.js");
-const { logger } = require("../logger.js");
 
 
 var express = require("express");
@@ -39,7 +38,6 @@ router.post("/buttons", function(req, res) {
   
   }catch(e){
     res.status(500).send();
-    logger.error(e);
     
   }
 });
@@ -72,7 +70,6 @@ router.post("/colleges", async (req, res) => {
   res.status(200).send(getResponseModel(template));
   }catch(e){
     res.status(500).send();
-    logger.error(e);
   }
 });
 
@@ -105,7 +102,6 @@ router.post("/colleges", async (req, res) => {
   res.status(200).send(getResponseModel(template));
   }catch(e){
   res.status(500).send();
-  logger.error(e);
 
   }
 });
@@ -140,7 +136,6 @@ router.post("/majors", async (req, res) => {
   res.status(200).send(getResponseModel(template));
   }catch(e){
   res.status(500).send();
-  logger.error(e);
 
   }
 });
@@ -171,7 +166,6 @@ router.post("/info/major", async (req, res) => {
   res.status(200).send(getResponseModel(template));
   }catch(e){
   res.status(500).send();
-  logger.error(e);
 
   }
 });
@@ -206,7 +200,6 @@ router.post("/agents", async (req, res) => {
   res.status(200).send(getResponseModel(template));
   }catch(e){
   res.status(500).send();
-  logger.error(e);
 
   }
 });
@@ -239,7 +232,6 @@ router.post("/info/agent", async (req, res) => {
   res.status(200).send(getResponseModel(template));
   }catch(e){
   res.status(500).send();
-  logger.error(e);
 
   }
 });
@@ -272,7 +264,6 @@ router.post("/favoriteinfo", async (req, res) => {
   res.status(200).send(getResponseModel(template));
   }catch(e){
   res.status(500).send();
-  logger.error(e);
 
   }
 });
@@ -304,7 +295,6 @@ try{
   res.status(200).send(getResponseModel(template));
 }catch(e){
   res.status(500).send();
-  logger.error(e);
 
   }
 });
@@ -341,7 +331,6 @@ router.post("/facilities", async (req, res) => {
   res.status(200).send(getResponseModel(template));
   }catch(e){
   res.status(500).send();
-  logger.error(e);
 
   }
 });
@@ -374,7 +363,6 @@ router.post("/info/facility", async (req, res) => {
 
 }catch(e){
   res.status(500).send();
-  logger.error(e);
 
 }
 });
@@ -407,7 +395,6 @@ router.post("/dormitory", async (req, res) => {
 
 }catch(e){
   res.status(500).send();
-  logger.error(e);
 
   }
 });
@@ -441,7 +428,6 @@ router.post("/notifications", async (req, res) => {
 
 }catch(e){
   res.status(500).send();
-  logger.error(e);
 
   }
 });
@@ -475,7 +461,6 @@ router.post("/notifications/info", async (req, res) => {
 
 }catch(e){
   res.status(500).send();
-  logger.error(e);
 
 }
 });

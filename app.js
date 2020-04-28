@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var fs = require('fs');
 
-var logger = require('morgan');
+// var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var skillsRouter = require('./routes/skills');
@@ -29,7 +29,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
@@ -42,32 +42,6 @@ app.use('/skills', skillsRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
-});
-
-
-app.use(logger({
-  format: 'dev',
-  stream: fs.createWriteStream('app.log', {'flags': 'w'})
-}));
-
-app.use(logger(":remote-addr"), function(req, res, next){
-  next();
-});
- 
-app.use(logger(":method"), function(req, res, next){
-  next();
-});
- 
-app.use(logger(":url"), function(req, res, next){
-  next();
-});
- 
-app.use(logger(":date"), function(req, res, next){
-  next();
-});
- 
-app.use(logger(":status"), function(req, res, next){
-  next();
 });
 
 // error handler
