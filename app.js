@@ -20,7 +20,7 @@ db.once('open', function(){
     console.log("Connected to mongod server");
 });
 //mongoose.connect("mongodb://13.209.138.83:27777/catbot");
-mongoose.connect("mongodb://127.0.0.1:27777/catbot");
+mongoose.connect(process.env.DB_CONNECT_URL, { user : process.env.DB_USER_NAME, pass: process.env.DB_USER_PWD});
 
 //mongoose.connect(process.env.MONGO_URL);
 var app = express();
