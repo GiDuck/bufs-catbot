@@ -10,8 +10,9 @@ var fs = require('fs');
 
 var indexRouter = require('./routes/index');
 var skillsRouter = require('./routes/skills');
+var dbinfo = require('./dbinfo');
 
-require('dotenv').config({ path: path.join(__dirname, '/.env') });
+require('dotenv').config();
 
 var db = mongoose.connection;
 db.on('error', console.error);
@@ -20,7 +21,7 @@ db.once('open', function(){
     console.log("Connected to mongod server");
 });
 //mongoose.connect("mongodb://13.209.138.83:27777/catbot");
-mongoose.connect(process.env.DB_CONNECT_URL, { user : process.env.DB_USER_NAME, pass: process.env.DB_USER_PWD});
+mongoose.connect(dbinfo.DB_CONNECT_URL, { user : dbinfo.DB_USER_NAME, pass: dbinfo.DB_USER_PWD});
 
 //mongoose.connect(process.env.MONGO_URL);
 var app = express();
