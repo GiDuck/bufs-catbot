@@ -11,7 +11,7 @@ var fs = require('fs');
 var indexRouter = require('./routes/index');
 var skillsRouter = require('./routes/skills');
 
-require('dotenv').config();
+require('dotenv').config({ path: path.join(__dirname, '/.env') });
 
 var db = mongoose.connection;
 db.on('error', console.error);
