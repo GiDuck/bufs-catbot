@@ -5,7 +5,8 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   //getFood(3);
-  res.render('index', { title: 'Express' });
+  res.status(200).send("index page");
+  //res.render('index', { title: 'Express' });
 });
 
 router.get("/contact", async (req, res) => {
